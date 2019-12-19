@@ -1,5 +1,6 @@
 import { create } from "apisauce";
 import ErrorHandler from "../errorHandler";
+import { htmlParser } from "../../utils/helpers";
 
 class CrescendoRecipeApi {
   constructor() {
@@ -98,7 +99,7 @@ class CrescendoRecipeApi {
         type: data.type,
         title: data.title,
         geo: data.geo,
-        text: data.text
+        text: htmlParser(data.text)
       };
     };
 

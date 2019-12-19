@@ -29,6 +29,15 @@ function RecipeListItem({ recipe, specials, isLoading }) {
           <div>
             {filteredIngredientSpecials.length} ingredient specials available
           </div>
+          <div>
+            {filteredIngredientSpecials.map(special => (
+              <div className="filtered-special-container" key={special.uuid}>
+                <div>{special.title}</div>
+                <div>{special.type}</div>
+                <div>{special.text}</div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
