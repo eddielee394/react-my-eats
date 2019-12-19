@@ -6,11 +6,11 @@ function RecipeDetail(props) {
       <div className="recipe-heading-container">
         <div className="recipe-title">Recipe title</div>
         <div className="recipe-edit-btn">Edit Recipe btn</div>
-        <div className="recipe-edit-btn">Edit Recipe btn</div>
+        <div className="recipe-start-btn">Start Cooking btn</div>
       </div>
-      <div>Recipe Ingredients</div>
-      <div>Recipe Directions</div>
-      <div>Recipe Info</div>
+      <div className="recipe-ingredients-container">Recipe Ingredients</div>
+      <div className="recipe-directions-container">Recipe Directions</div>
+      <div className="recipe-info-container">Recipe Info</div>
     </div>
   );
 }
