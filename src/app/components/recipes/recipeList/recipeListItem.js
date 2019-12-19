@@ -14,6 +14,23 @@ function RecipeListItem({ recipe, specials, isLoading }) {
 
   const hasIngredientSpecial = filteredIngredientSpecials.length > 0;
 
+  const _renderIngredientSpecial = ({ uuid }) => {
+    const special = filteredIngredientSpecials.find(
+      _special => _special.ingredientId === uuid
+    );
+
+    if (special !== undefined) {
+      return (
+        <div className="filtered-special-container">
+          <div>Specials:</div>
+          <div>{special.title}</div>
+          <div>{special.type}</div>
+          <div>{special.text}</div>
+        </div>
+      );
+    }
+  };
+
   const _renderItem = (
     <div className="item">
       <div className="image-container">
@@ -24,22 +41,20 @@ function RecipeListItem({ recipe, specials, isLoading }) {
       <div>Prep time: {recipe.prepTime}</div>
       <div>Cook time: {recipe.cookTime}</div>
       <div>Post Date: {recipe.postDate}</div>
-      {hasIngredientSpecial && (
-        <div className="ingredient-special-container">
+      <div className="ingredients-container">
+        {hasIngredientSpecial && (
           <div>
             {filteredIngredientSpecials.length} ingredient specials available
           </div>
-          <div>
-            {filteredIngredientSpecials.map(special => (
-              <div className="filtered-special-container" key={special.uuid}>
-                <div>{special.title}</div>
-                <div>{special.type}</div>
-                <div>{special.text}</div>
-              </div>
-            ))}
+        )}
+        <div>Ingredients:</div>
+        {ingredients.map(ingredient => (
+          <div key={ingredient.uuid}>
+            <div>{ingredient.name}</div>
+            {hasIngredientSpecial && _renderIngredientSpecial(ingredient)}
           </div>
-        </div>
-      )}
+        ))}
+      </div>
     </div>
   );
 
