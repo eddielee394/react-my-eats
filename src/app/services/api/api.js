@@ -19,17 +19,32 @@ class Api {
   getRecipe = id => this.api.getRecipe(id);
 
   /**
+   * Fetches specials for a specific set of recipe ingredients
+   * @param {array} ingredients
+   * @returns {Promise<{data: *}>}
+   */
+  getIngredientSpecials = async (ingredients = []) => {
+    const specials = await this.api.getIngredientSpecials();
+
+    const filteredIngredientSpecials = specials.data.filter(special =>
+      ingredients.some(ingredient => special.ingredientId === ingredient.uuid)
+    );
+
+    return { data: filteredIngredientSpecials };
+  };
+
+  /**
    * Fetches all ingredient specials
    * @returns {Promise<{data: {geo?: string, ingredientId: string, text?: string, type: string, title: string, uuid: string}, message: string}>}
    */
-  getIngredientSpecials = () => this.api.getIngredientSpecials();
+  getSpecials = () => this.api.getIngredientSpecials();
 
   /**
    * Fetches a single special
    * @param id
    * @returns {Promise<{data: {geo?: string, ingredientId: string, text: string, type: string, title: string, uuid: string}, message: string}>}
    */
-  getIngredientSpecial = id => this.api.getIngredientSpecial(id);
+  getSpecial = id => this.api.getIngredientSpecial(id);
 }
 
 const instance = new Api();
