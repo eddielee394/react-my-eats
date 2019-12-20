@@ -34,7 +34,7 @@ function RecipeListItem({ recipe, specials, isLoading }) {
   const _renderItem = (
     <div className="item">
       <div className="image-container">
-        <img src={`http://localhost:3001${recipe.images.medium}`} />
+        <img src={recipe.images.medium} />
       </div>
       <div>Title: {recipe.title}</div>
       <div>Description: {recipe.description}</div>
