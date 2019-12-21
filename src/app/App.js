@@ -1,24 +1,18 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import { Router } from "react-router-dom";
+import history from "./utils/@history";
+import routes from "./config/routesConfig";
+import AppContext from "./AppContext";
+import "./App.css";
+import Layout from "./components/ui/layout/layout";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={{ routes }}>
+      <Router history={history}>
+        <Layout />
+      </Router>
+    </AppContext.Provider>
   );
 }
 
