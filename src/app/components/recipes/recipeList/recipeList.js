@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import Api from "../../../services/api";
 import RecipeListItem from "./recipeListItem";
+import Suspense from "../../ui/suspense";
 
 function RecipeList(props) {
   const [recipes, setRecipes] = useState([]);
@@ -19,14 +21,25 @@ function RecipeList(props) {
   return (
     <div className="container">
       {recipes.map(recipe => (
-        <RecipeListItem
-          key={recipe.uuid}
-          recipe={recipe}
-          isLoading={isLoading}
-        />
+        <React.Fragment key={recipe.uuid}>
+          <Suspense
+            loader
+            loadingProps={{
+              loaderType: "cardItemLoader",
+              isLoading: isLoading
+            }}
+          >
+            <RecipeListItem recipe={recipe} />
+          </Suspense>
+        </React.Fragment>
       ))}
     </div>
   );
 }
+
+RecipeList.propTypes = {
+  recipes: PropTypes.arrayOf(PropTypes.object),
+  isLoading: PropTypes.bool
+};
 
 export default RecipeList;
