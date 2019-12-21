@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Api from "../../../services/api";
-import CardItemLoader from "../../ui/loaders/cardItemLoader";
+import Loader from "../../ui/loaders/loader";
+import PropTypes from "prop-types";
+import Suspense from "../../ui/suspense";
 
 //Todo temporary id for testing
 const id = "e80ea521-4d42-48fe-a7a6-ac8952bc0de4";
@@ -9,7 +11,6 @@ function RecipeDetail(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [recipe, setRecipe] = useState({});
   const [specials, setSpecials] = useState([]);
-  const { ingredients } = recipe;
 
   useEffect(() => {
     const getData = async () => {
@@ -21,7 +22,7 @@ function RecipeDetail(props) {
       );
       setSpecials(specialsResponse.data);
 
-      setIsLoading(false);
+      setIsLoading(true);
     };
 
     getData();
@@ -46,37 +47,40 @@ function RecipeDetail(props) {
     }
   };
 
-  const _renderRecipe = recipe => {
-    return (
-      <div className="recipe-detail-container">
-        <div className="recipe-heading-container">
-          <div className="recipe-title">{recipe.title}</div>
-          <div className="recipe-edit-btn">Edit Recipe btn</div>
-          <div className="recipe-start-btn">Start Cooking btn</div>
-        </div>
-        <div className="recipe-ingredients-container">
-          <div>Recipe Ingredients:</div>
-          {ingredients.map(ingredient => (
-            <div className="ingredient-container" key={ingredient.uuid}>
-              <div>{ingredient.name}</div>
-              <div>
-                {hasIngredientSpecials &&
-                  _renderIngredientSpecial(ingredient.uuid)}
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="recipe-directions-container">Recipe Directions</div>
-        <div className="recipe-info-container">Recipe Info</div>
-      </div>
-    );
-  };
-
   return (
     <div className="container">
-      {isLoading ? <CardItemLoader /> : _renderRecipe(recipe)}
+      <Suspense isLoading={isLoading}>
+        <div className="recipe-detail-container">
+          <div className="recipe-heading-container">
+            <div className="recipe-title">{recipe.title}</div>
+            <div className="recipe-edit-btn">Edit Recipe btn</div>
+            <div className="recipe-start-btn">Start Cooking btn</div>
+          </div>
+          <div className="recipe-ingredients-container">
+            <div>Recipe Ingredients:</div>
+            {recipe.ingredients &&
+              recipe.ingredients.map(ingredient => (
+                <div className="ingredient-container" key={ingredient.uuid}>
+                  <div>{ingredient.name}</div>
+                  <div>
+                    {hasIngredientSpecials &&
+                      _renderIngredientSpecial(ingredient.uuid)}
+                  </div>
+                </div>
+              ))}
+          </div>
+          <div className="recipe-directions-container">Recipe Directions</div>
+          <div className="recipe-info-container">Recipe Info</div>
+        </div>
+      </Suspense>
     </div>
   );
 }
+
+RecipeDetail.propTypes = {
+  isLoading: PropTypes.bool,
+  recipe: PropTypes.objectOf(PropTypes.shape({ ingredients: PropTypes.array })),
+  specials: PropTypes.object
+};
 
 export default RecipeDetail;
