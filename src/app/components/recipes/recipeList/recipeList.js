@@ -21,16 +21,17 @@ function RecipeList(props) {
   return (
     <div className="container">
       {recipes.map(recipe => (
-        <Suspense
-          loaded={isLoading}
-          loadingProps={{ loaderType: "cardItemLoader" }}
-        >
-          <RecipeListItem
-            key={recipe.uuid}
-            recipe={recipe}
-            isLoading={isLoading}
-          />
-        </Suspense>
+        <React.Fragment key={recipe.uuid}>
+          <Suspense
+            loader
+            loadingProps={{
+              loaderType: "cardItemLoader",
+              isLoading: isLoading
+            }}
+          >
+            <RecipeListItem recipe={recipe} />
+          </Suspense>
+        </React.Fragment>
       ))}
     </div>
   );
