@@ -3,31 +3,31 @@ import PropTypes from "prop-types";
 import Loader from "./loaders/loader";
 
 /**
- * React Suspense defaults
- * Custom implementation to avoids repetitive declarations and implements an ad-hoc data fetching suspense feature, without
+ * Suspense defaults
+ * Custom react suspsense implementation to avoids repetitive declarations
+ * and implements an ad-hoc data fetching suspense feature, without
  * having to use the react experimental build
  */
-function Suspense(props) {
-  const { loadingProps, loaded } = props;
-
-  if (loaded) {
-    return <Loader {...loadingProps} />;
+function Suspense({ loader, children, loadingProps }) {
+  if (loader) {
+    return <Loader children={children} {...loadingProps} />;
   }
 
   return (
-    <React.Suspense fallback={<Loader {...loadingProps} />}>
-      {props.children}
+    <React.Suspense fallback={<Loader isSuspense {...loadingProps} />}>
+      {children}
     </React.Suspense>
   );
 }
 
 Suspense.propTypes = {
-  loaded: PropTypes.bool,
-  loadingProps: PropTypes.object
+  loader: PropTypes.bool,
+  loadingProps: PropTypes.object,
+  children: PropTypes.element.isRequired
 };
 
 Suspense.defaultProps = {
-  loaded: false,
+  loader: false,
   loadingProps: {
     loaderType: "spinner"
   }
