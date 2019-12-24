@@ -1,25 +1,135 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import Suspense from "../../ui/suspense";
+import {
+  Avatar,
+  Badge,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Chip,
+  Fade,
+  IconButton,
+  makeStyles,
+  Tooltip,
+  Typography
+} from "@material-ui/core";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
+import LoyaltyOutlinedIcon from "@material-ui/icons/LoyaltyOutlined";
+import Img from "react-image";
+import { formatTimeFromNow } from "../../../utils/helpers";
 
-function RecipeListItem({ recipe }) {
+const useStyles = makeStyles(theme => ({
+  cardImage: {
+    objectFit: "cover",
+    objectPosition: "center",
+    width: "100%",
+    height: "100%"
+  },
+  // favoriteButton: {
+  //   marginLeft: "auto"
+  // },
+  specialsIcon: {
+    color: theme.palette.background.paper,
+    backgroundColor: theme.palette.text.secondary,
+    border: `2px solid ${theme.palette.background.paper}`
+  },
+  recipeTimeIcon: {
+    color: theme.palette.secondary.contrastText,
+    marginLeft: "auto"
+  }
+}));
+
+function RecipeListItem(props) {
+  const [favorited, setFavorited] = useState(false);
+  const { recipe } = props;
+  const classes = useStyles();
+
+  const handleToggleFavorite = event => {
+    setFavorited(!favorited);
+  };
+
+  const recipeTime = recipe.prepTime + recipe.cookTime;
+  const hasSpecials = recipe.specialsCount > 0;
+
   return (
-    <div className="item-container">
-      <div className="item">
-        <div className="image-container">
-          <Suspense loader loadingProps={{ isLoading: !recipe.images.medium }}>
-            <img alt={recipe.title} src={recipe.images.medium} />
-          </Suspense>
-        </div>
-        <div>
-          <Link to={`/recipes/${recipe.uuid}`}>Title: {recipe.title}</Link>
-        </div>
-        <div>Description: {recipe.description}</div>
-        <div>Prep time: {recipe.prepTime}</div>
-        <div>Cook time: {recipe.cookTime}</div>
-        <div>Post Date: {recipe.postDate}</div>
-      </div>
+    <div className="w-full my-5">
+      <Card className="py-5">
+        <CardHeader
+          avatar={<Avatar>ME</Avatar>}
+          title={<Typography variant="h6">recipe.author</Typography>}
+          subheader={
+            <Typography variant="subtitle1">
+              {formatTimeFromNow(recipe.postDate)}
+            </Typography>
+          }
+          action={
+            <IconButton onClick={handleToggleFavorite}>
+              {favorited ? (
+                <FavoriteIcon color="error" />
+              ) : (
+                <FavoriteBorderOutlinedIcon />
+              )}
+            </IconButton>
+          }
+        />
+        <CardMedia className="flex h-320">
+          <Img
+            src={recipe.images.medium}
+            className={classes.cardImage}
+            container={children => {
+              return (
+                <Fade in={true} timeout={500}>
+                  {children}
+                </Fade>
+              );
+            }}
+          />
+        </CardMedia>
+        <Link to={`/recipes/${recipe.uuid}`}>
+          <CardContent>
+            <div className="flex justify-between">
+              <Typography variant="h4">{recipe.title}</Typography>
+              {hasSpecials && (
+                <Tooltip
+                  title={
+                    <Typography variant="caption">
+                      {recipe.specialsCount} Special Promotions Available!
+                    </Typography>
+                  }
+                  arrow
+                >
+                  <Badge
+                    badgeContent={recipe.specialsCount}
+                    overlap="circle"
+                    classes={{ badge: classes.specialsIcon }}
+                  >
+                    <LoyaltyOutlinedIcon fontSize="large" color="primary" />
+                  </Badge>
+                </Tooltip>
+              )}
+            </div>
+            <Typography variant="body1" component="p" gutterBottom>
+              {recipe.description}
+            </Typography>
+          </CardContent>
+        </Link>
+        <CardActions disableSpacing>
+          <Button size="small">{recipe.specialsCount} Likes</Button>
+          <Button size="small">{recipe.specialsCount} Comments</Button>
+          <Chip
+            icon={<AccessTimeIcon />}
+            label={`${recipeTime} mins`}
+            color="primary"
+            className={classes.recipeTimeIcon}
+          />
+        </CardActions>
+      </Card>
     </div>
   );
 }

@@ -11,14 +11,11 @@ function Loader(props) {
   const { loaderType, isLoading, isSuspense } = props;
 
   if (isLoading || isSuspense) {
-    switch (loaderType) {
-      case LOADER_TYPE.SPINNER:
-        return <SpinnerLoader {...props} />;
-      case LOADER_TYPE.CARD_ITEM:
-        return <CardItemLoader {...props} />;
-      default:
-        return <SpinnerLoader {...props} />;
-    }
+    return loaderType === LOADER_TYPE.CARD_ITEM ? (
+      <CardItemLoader {...props} />
+    ) : (
+      <SpinnerLoader {...props} />
+    );
   } else {
     return props.children;
   }

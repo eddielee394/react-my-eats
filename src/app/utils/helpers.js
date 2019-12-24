@@ -1,5 +1,6 @@
 import { includes } from "lodash";
 import ReactHtmlParser from "react-html-parser";
+import moment from "moment";
 
 /**
  * Parses html and strips any tags designated in the blacklist array
@@ -7,7 +8,7 @@ import ReactHtmlParser from "react-html-parser";
  * @param {object} options
  * @returns {Array}
  */
-export function htmlParser (html, options = {}) {
+export function htmlParser(html, options = {}) {
   const blacklist = [
     "applet",
     "base",
@@ -38,20 +39,21 @@ export function htmlParser (html, options = {}) {
   const data = ReactHtmlParser(html, { transform: transform, ...options });
 
   return data;
-};
+}
 
-
-export function setRoutes(config, defaultAuth) {
+/**
+ * Sets the configured routes
+ * @param config
+ * @returns {*[]}
+ */
+export function setRoutes(config) {
   let routes = [...config.routes];
 
   if (config.settings || config.auth) {
     routes = routes.map(route => {
-      let auth = config.auth ? [...config.auth] : defaultAuth || null;
-      auth = route.auth ? [...auth, ...route.auth] : auth;
       return {
         ...route,
-        settings: { ...config.settings, ...route.settings },
-        auth
+        settings: { ...config.settings, ...route.settings }
       };
     });
   }
@@ -59,10 +61,36 @@ export function setRoutes(config, defaultAuth) {
   return [...routes];
 }
 
-export function generateRoutesFromConfigs(configs, defaultAuth) {
+/**
+ * Maps over the configured routes
+ * @param {array} configs
+ * @returns {[]}
+ */
+export function generateRoutesFromConfigs(configs) {
   let allRoutes = [];
   configs.forEach(config => {
-    allRoutes = [...allRoutes, ...setRoutes(config, defaultAuth)];
+    allRoutes = [...allRoutes, ...setRoutes(config)];
   });
   return allRoutes;
+}
+
+/**
+ * Formats timestamp as human readable "from now" format
+ * @param {Date} timestamp
+ * @returns {string}
+ */
+export function formatTimeFromNow(timestamp) {
+  return moment(timestamp).fromNow();
+}
+
+/**
+ * Helper method to filter a collection by an object prop value from another collection
+ * @param {array || object } collection collection to be iterated over
+ * @param {array || object} sources source collection containing object that is to be compared
+ * @returns {array || object}
+ */
+export function filterCollectionByObjProp(collection, sources) {
+  return collection.filter(data =>
+    sources.some(source => data.ingredientId === source.uuid)
+  );
 }
