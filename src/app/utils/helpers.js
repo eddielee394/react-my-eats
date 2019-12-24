@@ -80,6 +80,9 @@ export function generateRoutesFromConfigs(configs) {
  * @returns {string}
  */
 export function formatTimeFromNow(timestamp) {
+  //disable the deprec warnings temporarily
+  moment.suppressDeprecationWarnings = true;
+
   return moment(timestamp).fromNow();
 }
 

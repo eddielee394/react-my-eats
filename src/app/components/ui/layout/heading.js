@@ -1,24 +1,29 @@
 import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { APP_CONFIG } from "../../../config/appConfig";
 import {
   AppBar,
-  Avatar,
   Badge,
+  Button,
   InputBase,
   IconButton,
   Toolbar,
-  makeStyles
+  makeStyles,
+  Fade
 } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import SearchIcon from "@material-ui/icons/Search";
+import Img from "react-image";
+import { logoLandscape } from "../../../utils/images";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
     backgroundColor: theme.palette.common.white,
     color: theme.palette.text.hint
+  },
+  logo: {
+    maxWidth: 160
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -54,7 +59,19 @@ function Heading(props) {
       <div className="flex-row">
         <Toolbar className="mx-auto max-w-lg  lg:max-w-2xl">
           <div className={clsx("flex flex-shrink-0 items-center")}>
-            <Avatar>{APP_CONFIG.appName}</Avatar>
+            <Button>
+              <Img
+                src={logoLandscape}
+                className={classes.logo}
+                container={children => {
+                  return (
+                    <Fade in={true} timeout={500}>
+                      {children}
+                    </Fade>
+                  );
+                }}
+              />
+            </Button>
           </div>
           <div className="flex flex-1 justify-center">
             <div
