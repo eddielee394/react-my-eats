@@ -20,6 +20,18 @@ const themesConfig = {
         paper: "#FFFFFF",
         default: "#F7F8FA"
       },
+      overlay: {
+        light: {
+          1: "rgba(247,248,250,0.25)",
+          2: "rgba(247,248,250,0.5)",
+          3: "rgba(247,248,250,0.75)"
+        },
+        dark: {
+          1: "rgba(40,41,40,0.25)",
+          2: "rgba(40,41,40,0.5)",
+          3: "rgba(40,41,40,0.75)"
+        }
+      },
       error: red
     },
     status: {
