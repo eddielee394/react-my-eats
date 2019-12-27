@@ -1,6 +1,10 @@
 import { create } from "apisauce";
 import ErrorHandler from "../errorHandler";
-import { filterCollectionByObjProp, htmlParser } from "../../utils/helpers";
+import {
+  filterCollectionByObjProp,
+  generateDummyData,
+  htmlParser
+} from "../../utils/helpers";
 import { APP_CONFIG } from "../../config/appConfig";
 
 class CrescendoRecipeApi {
@@ -111,7 +115,11 @@ class CrescendoRecipeApi {
         images: {
           full: `${this.baseUrl}${data.images.full}`,
           medium: `${this.baseUrl}${data.images.medium}`,
-          small: `${this.baseUrl}${data.images.small}`
+          small: `${this.baseUrl}${data.images.small}`,
+          gallery: generateDummyData(
+            { title: "test", path: `${this.baseUrl}${data.images.medium}` },
+            14
+          )
         },
         servings: data.servings,
         prepTime: data.prepTime,

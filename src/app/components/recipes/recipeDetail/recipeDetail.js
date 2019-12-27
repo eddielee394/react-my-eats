@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import clsx from "clsx";
+import { Paper } from "@material-ui/core";
 import Api from "../../../services/api";
 import RecipeDetailHeading from "./recipeDetailHeading";
 import RecipeDetailIngredients from "./recipeDetailIngredients";
 import RecipeDetailDirections from "./recipeDetailDirections";
 import Suspense from "../../ui/suspense";
+import Sidebar from "../../ui/layout/sidebar";
+import RecipeDetailImages from "./recipeDetailImages";
 
 function RecipeDetail(props) {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,18 +35,29 @@ function RecipeDetail(props) {
   }, [id]);
 
   return (
-    <div className="container">
-      <Suspense loader loadingProps={{ isLoading: isLoading }}>
-        <div className="recipe-detail-container">
-          <RecipeDetailHeading images={recipe.images} title={recipe.title} />
-          <RecipeDetailIngredients
-            ingredients={recipe.ingredients}
-            specials={specials}
-          />
-          <RecipeDetailDirections directions={recipe.directions} />
-          <div className="recipe-info-container">Recipe Info</div>
-        </div>
-      </Suspense>
+    <div className="sm:flex w-full lg:px-208 my-4">
+      <Sidebar colSize="1/3" widgetClasses="flex justify-center">
+        <Suspense loader loadingProps={{ isLoading: isLoading }}>
+          <RecipeDetailImages images={recipe.images} />
+        </Suspense>
+      </Sidebar>
+      <div className={clsx("w-full my-5 p-5 recipe-detail-container")}>
+        <Suspense loader loadingProps={{ isLoading: isLoading }}>
+          <Paper className={clsx("flex flex-col items-center h-full my-5 p-5")}>
+            <RecipeDetailHeading images={recipe.images} title={recipe.title} />
+            <RecipeDetailIngredients
+              ingredients={recipe.ingredients}
+              specials={specials}
+            />
+          </Paper>
+          <Paper>
+            <RecipeDetailDirections directions={recipe.directions} />
+          </Paper>
+          <Paper>
+            <div className="recipe-info-container">Recipe Info</div>
+          </Paper>
+        </Suspense>
+      </div>
     </div>
   );
 }

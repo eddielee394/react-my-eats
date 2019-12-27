@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
+import { chunk } from "lodash";
 import {
   Badge,
   Fade,
@@ -12,51 +13,8 @@ import {
   withStyles
 } from "@material-ui/core";
 import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import Img from "react-image";
-
-//Todo temp image gallery collection
-const gallery = [
-  {
-    id: 1,
-    title: "Test1",
-    path: "http://localhost:3001/img/queso_brat_scramble--m.jpg"
-  },
-  {
-    id: 2,
-    title: "Test2",
-    path: "http://localhost:3001/img/queso_brat_scramble--m.jpg"
-  },
-  {
-    id: 3,
-    title: "Test3",
-    path: "http://localhost:3001/img/queso_brat_scramble--m.jpg"
-  },
-  {
-    id: 4,
-    title: "Test4",
-    path: "http://localhost:3001/img/queso_brat_scramble--m.jpg"
-  },
-  {
-    id: 5,
-    title: "Test5",
-    path: "http://localhost:3001/img/queso_brat_scramble--m.jpg"
-  },
-  {
-    id: 6,
-    title: "Test6",
-    path: "http://localhost:3001/img/queso_brat_scramble--m.jpg"
-  },
-  {
-    id: 7,
-    title: "Test7",
-    path: "http://localhost:3001/img/queso_brat_scramble--m.jpg"
-  },
-  {
-    id: 8,
-    title: "Test8",
-    path: "http://localhost:3001/img/queso_brat_scramble--m.jpg"
-  }
-];
 
 const useStyles = makeStyles(theme => ({
   imagesContainer: {},
@@ -85,15 +43,41 @@ const StyledGridListTileBar = withStyles(theme => ({
   }
 }))(GridListTileBar);
 
-function RecipeDetailImages({ images = {} }) {
+function RecipeDetailImages({ images = {} }, props) {
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [galleryPage, setGalleryPage] = useState(1);
+  const [galleryPageTotal, setGalleryPageTotal] = useState(1);
+  const [galleryImagesPerPage] = useState(5);
+  const { gallery } = images;
+
   const classes = useStyles();
-  const galleryCount = gallery.length;
-  const chunkedGalleryImages = gallery.slice(0, 6);
-  const galleryViewMoreCount = galleryCount - chunkedGalleryImages.length;
+
+  const chunkedImages = useMemo(() => chunk(gallery, galleryImagesPerPage), [
+    gallery,
+    galleryImagesPerPage
+  ]);
+
+  const galleryViewMoreCount =
+    galleryPage === galleryPageTotal
+      ? 0
+      : gallery.length - galleryImages.length * galleryPage;
+
+  useEffect(() => {
+    setGalleryImages(chunkedImages[galleryPage - 1]);
+    setGalleryPageTotal(chunkedImages.length);
+  }, [galleryPage, chunkedImages]);
+
+  const handleViewMoreClick = event => {
+    const pageIncrement = galleryPage + 1;
+
+    pageIncrement > galleryPageTotal
+      ? setGalleryPage(1)
+      : setGalleryPage(galleryPage + 1);
+  };
 
   const _renderGalleryImages = (
     <GridList cellHeight={80} cols={3}>
-      {chunkedGalleryImages.map((image, index) => {
+      {galleryImages.map((image, index) => {
         return (
           <GridListTile key={image.id}>
             <Img
@@ -107,25 +91,40 @@ function RecipeDetailImages({ images = {} }) {
                 );
               }}
             />
-            {index === chunkedGalleryImages.length - 1 && (
-              <StyledGridListTileBar
-                className="text-center"
-                title={
-                  <IconButton>
-                    <Badge
-                      badgeContent={galleryViewMoreCount}
-                      color="primary"
-                      classes={{ badge: classes.gridImageViewMoreBadge }}
-                    >
-                      <PhotoLibraryIcon fontSize="large" />
-                    </Badge>
-                  </IconButton>
-                }
-              />
-            )}
           </GridListTile>
         );
       })}
+      <GridListTile key={images.small}>
+        <Img
+          src={images.small}
+          className={clsx(classes.image, "w-full h-full")}
+          container={children => {
+            return (
+              <Fade in={true} timeout={500}>
+                {children}
+              </Fade>
+            );
+          }}
+        />
+        <StyledGridListTileBar
+          className="text-center"
+          title={
+            <IconButton onClick={handleViewMoreClick}>
+              <Badge
+                badgeContent={galleryViewMoreCount}
+                color="primary"
+                classes={{ badge: classes.gridImageViewMoreBadge }}
+              >
+                {galleryViewMoreCount > 0 ? (
+                  <PhotoLibraryIcon fontSize="large" />
+                ) : (
+                  <ArrowBackIcon fontSize="large" />
+                )}
+              </Badge>
+            </IconButton>
+          }
+        />
+      </GridListTile>
     </GridList>
   );
 
@@ -152,7 +151,7 @@ function RecipeDetailImages({ images = {} }) {
 }
 
 RecipeDetailImages.propTypes = {
-  images: PropTypes.object.isRequired
+  images: PropTypes.object
 };
 
 export default RecipeDetailImages;

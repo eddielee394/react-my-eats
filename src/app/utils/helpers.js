@@ -97,3 +97,22 @@ export function filterCollectionByObjProp(collection, sources) {
     sources.some(source => data.ingredientId === source.uuid)
   );
 }
+
+/**
+ * Generates dummy data in the form of an array of objects.
+ * @param {object} props properties of each object. Each object has a default id property.
+ * @param {number} count number of times the loop should run. defaults to 10.
+ * @param {number} i starting index for the loop defaults to 0
+ * @returns {[]}
+ */
+export function generateDummyData({ ...props }, count = 10, i = 0) {
+  let data = [];
+
+  for (i; i < count; i++) {
+    data.push({
+      id: i,
+      ...props
+    });
+  }
+  return data;
+}
