@@ -1,2 +1,2 @@
-export { default as CardItemLoader } from "./cardItemLoader";
+export { default as PlaceholderLoader } from "./placeholderLoader";
 export { default as SpinnerLoader } from "./spinnerLoader";
