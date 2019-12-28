@@ -56,14 +56,14 @@ function RecipeDetail(props) {
       >
         <Suspense loader loadingProps={{ isLoading: isLoading }}>
           <Paper className={clsx("flex flex-col items-center my-5 p-5")}>
-            <RecipeDetailHeading images={recipe.images} title={recipe.title} />
+            <RecipeDetailHeading {...recipe} />
             <Divider variant="middle" className="w-full" />
             <RecipeDetailIngredients
               ingredients={recipe.ingredients}
               specials={specials}
             />
           </Paper>
-          <Paper>
+          <Paper className={clsx("flex flex-col items-center my-5 p-5")}>
             <RecipeDetailDirections directions={recipe.directions} />
           </Paper>
           <Paper>
