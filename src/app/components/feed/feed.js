@@ -12,6 +12,7 @@ import {
 import RecipeList from "../recipes/recipeList/recipeList";
 import CreateIcon from "@material-ui/icons/Create";
 import Sidebar from "../ui/layout/sidebar";
+import { showNotification } from "../../utils/helpers";
 
 const useStyles = makeStyles({
   addButton: {
@@ -69,7 +70,11 @@ function Feed(props) {
           </ListItem>
         </List>
       </Sidebar>
-      <Fab color="primary" className={classes.addButton}>
+      <Fab
+        color="primary"
+        className={classes.addButton}
+        onClick={showNotification}
+      >
         <CreateIcon />
       </Fab>
     </div>

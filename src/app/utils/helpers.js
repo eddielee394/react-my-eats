@@ -136,11 +136,18 @@ export function showNotification({
   toastType = "WARNING",
   options = {}
 }) {
+  const toastId = "notification";
   let content;
 
   !message
     ? (content = "Whoops! Looks like that feature isn't finished yet.")
     : (content = message);
 
-  toast(content, { type: toast.TYPE[toastType], ...options });
+  if (!toast.isActive(toastId)) {
+    toast(content, {
+      toastId: toastId,
+      type: toast.TYPE[toastType],
+      ...options
+    });
+  }
 }

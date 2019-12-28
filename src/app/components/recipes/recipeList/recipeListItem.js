@@ -21,7 +21,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import LoyaltyOutlinedIcon from "@material-ui/icons/LoyaltyOutlined";
 import Img from "../../ui/img/img";
-import { formatTimeFromNow } from "../../../utils/helpers";
+import { formatTimeFromNow, showNotification } from "../../../utils/helpers";
 
 const useStyles = makeStyles(theme => ({
   favoriteButton: {},
@@ -101,8 +101,12 @@ function RecipeListItem(props) {
           </CardContent>
         </Link>
         <CardActions disableSpacing>
-          <Button size="small">{recipe.specialsCount} Likes</Button>
-          <Button size="small">{recipe.specialsCount} Comments</Button>
+          <Button onClick={showNotification} size="small">
+            {recipe.specialsCount} Likes
+          </Button>
+          <Button onClick={showNotification} size="small">
+            {recipe.specialsCount} Comments
+          </Button>
           <Chip
             icon={<AccessTimeIcon />}
             label={`${recipeTime} mins`}

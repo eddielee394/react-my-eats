@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button, Typography } from "@material-ui/core";
+import { showNotification } from "../../../utils/helpers";
 
 const RecipeDetailHeading = ({ title }) => {
   return (
@@ -11,7 +12,7 @@ const RecipeDetailHeading = ({ title }) => {
         </Typography>
       </div>
       <div className="w-2/5 md:w-1/5 self-center">
-        <Button variant="contained" color="primary">
+        <Button onClick={showNotification} variant="contained" color="primary">
           Start Cooking
         </Button>
       </div>
