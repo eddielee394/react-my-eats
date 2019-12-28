@@ -1,12 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  Button,
-  CardActions,
-  Chip,
-  Typography,
-  makeStyles
-} from "@material-ui/core";
+import { Button, Chip, Typography, makeStyles } from "@material-ui/core";
 import { showNotification } from "../../../utils/helpers";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import clsx from "clsx";
@@ -21,8 +15,8 @@ const RecipeDetailHeading = ({ title, prepTime, cookTime }) => {
   const classes = useStyles();
 
   return (
-    <div className="w-full md:flex  justify-between my-8">
-      <div className="flex flex-col items-center w-full md:w-2/3">
+    <div className="w-full md:flex justify-between my-8">
+      <div className="flex flex-col items-center md:items-stretch w-full md:w-2/3">
         <Typography variant="h4" className="recipe-title">
           {title}
         </Typography>

@@ -66,9 +66,6 @@ function RecipeDetail(props) {
           <Paper className={clsx("flex flex-col items-center my-5 p-5")}>
             <RecipeDetailDirections directions={recipe.directions} />
           </Paper>
-          <Paper>
-            <div className="recipe-info-container">Recipe Info</div>
-          </Paper>
         </Suspense>
       </div>
     </div>
