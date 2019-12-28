@@ -11,7 +11,6 @@ import {
   CardHeader,
   CardMedia,
   Chip,
-  Fade,
   IconButton,
   makeStyles,
   Tooltip,
@@ -21,19 +20,11 @@ import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import LoyaltyOutlinedIcon from "@material-ui/icons/LoyaltyOutlined";
-import Img from "react-image";
+import Img from "../../ui/img/img";
 import { formatTimeFromNow } from "../../../utils/helpers";
 
 const useStyles = makeStyles(theme => ({
-  cardImage: {
-    objectFit: "cover",
-    objectPosition: "center",
-    width: "100%",
-    height: "100%"
-  },
-  // favoriteButton: {
-  //   marginLeft: "auto"
-  // },
+  favoriteButton: {},
   specialsIcon: {
     color: theme.palette.background.paper,
     backgroundColor: theme.palette.text.secondary,
@@ -50,7 +41,7 @@ function RecipeListItem(props) {
   const { recipe } = props;
   const classes = useStyles();
 
-  const handleToggleFavorite = event => {
+  const handleToggleFavorite = () => {
     setFavorited(!favorited);
   };
 
@@ -79,17 +70,7 @@ function RecipeListItem(props) {
           }
         />
         <CardMedia className="flex h-320">
-          <Img
-            src={recipe.images.medium}
-            className={classes.cardImage}
-            container={children => {
-              return (
-                <Fade in={true} timeout={500}>
-                  {children}
-                </Fade>
-              );
-            }}
-          />
+          <Img src={recipe.images.medium} />
         </CardMedia>
         <Link to={`/recipes/${recipe.uuid}`}>
           <CardContent>

@@ -11,6 +11,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@welldone-software/why-did-you-render": "^3.5.0",
     "apisauce": "^1.1.1",
     "axios": "^0.19.0",
     "jss": "10.0.0",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "clsx": "^1.0.4",
     "cross-env": "^6.0.3",
+    "faker": "github:Marak/faker.js#master",
     "node-sass": "^4.13.0",
     "prop-types": "^15.7.2",
     "purgecss": "1.4.2",

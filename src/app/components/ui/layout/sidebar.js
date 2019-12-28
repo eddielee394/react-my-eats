@@ -2,8 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import StickyBox from "react-sticky-box";
-import { makeStyles } from "@material-ui/core/styles";
-import { Paper } from "@material-ui/core";
+import { Paper, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   col: {
@@ -19,8 +18,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Sidebar({ children, widgetClasses = "", colSize = "1/5" }) {
-  // const { children, widgetClasses='',colSize = "1/5" } = props;
+function Sidebar({ children, widgetClasses = "", colSize = "1/5", ...props }) {
   const classes = useStyles();
 
   return (

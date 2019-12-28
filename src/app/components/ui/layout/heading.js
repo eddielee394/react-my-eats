@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import clsx from "clsx";
 import {
   AppBar,
@@ -9,12 +8,11 @@ import {
   IconButton,
   Toolbar,
   makeStyles,
-  Fade
 } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import SearchIcon from "@material-ui/icons/Search";
-import Img from "react-image";
+import Img from "../../ui/img/img";
 import { logoLandscape } from "../../../utils/images";
 
 const useStyles = makeStyles(theme => ({
@@ -63,13 +61,6 @@ function Heading(props) {
               <Img
                 src={logoLandscape}
                 className={classes.logo}
-                container={children => {
-                  return (
-                    <Fade in={true} timeout={500}>
-                      {children}
-                    </Fade>
-                  );
-                }}
               />
             </Button>
           </div>
@@ -110,7 +101,5 @@ function Heading(props) {
     </AppBar>
   );
 }
-
-Heading.propTypes = {};
 
 export default Heading;

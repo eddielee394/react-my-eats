@@ -1,6 +1,7 @@
 import { includes } from "lodash";
 import ReactHtmlParser from "react-html-parser";
 import moment from "moment";
+import { toast } from "react-toastify";
 
 /**
  * Parses html and strips any tags designated in the blacklist array
@@ -30,7 +31,7 @@ export function htmlParser(html, options = {}) {
     "title"
   ];
 
-  const transform = ({ type, name }, index) => {
+  const transform = ({ type, name }) => {
     if (type === "tag" && includes(blacklist, name)) {
       return null;
     }
@@ -90,11 +91,18 @@ export function formatTimeFromNow(timestamp) {
  * Helper method to filter a collection by an object prop value from another collection
  * @param {array || object } collection collection to be iterated over
  * @param {array || object} sources source collection containing object that is to be compared
+ * @param {string} collectionProp  collection property to be compared with
+ * @param {string} sourceProp  source property to be compared to
  * @returns {array || object}
  */
-export function filterCollectionByObjProp(collection, sources) {
+export function filterCollectionByObjProp(
+  collection,
+  sources,
+  collectionProp,
+  sourceProp
+) {
   return collection.filter(data =>
-    sources.some(source => data.ingredientId === source.uuid)
+    sources.some(source => data[collectionProp] === source[sourceProp])
   );
 }
 
@@ -115,4 +123,24 @@ export function generateDummyData({ ...props }, count = 10, i = 0) {
     });
   }
   return data;
+}
+
+/**
+ * Shows a toast notification
+ * @param {string || null} message message to be displayed
+ * @param {string} toastType Type of toast to be displayed.  WARNING | INFO | SUCCESS | ERROR | DEFAULT
+ * @param {object || null} options toast configuration options.
+ */
+export function showNotification({
+  message = null,
+  toastType = "WARNING",
+  options = {}
+}) {
+  let content;
+
+  !message
+    ? (content = "Whoops! Looks like that feature isn't finished yet.")
+    : (content = message);
+
+  toast(content, { type: toast.TYPE[toastType], ...options });
 }

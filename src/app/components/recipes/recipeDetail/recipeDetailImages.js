@@ -4,7 +4,6 @@ import clsx from "clsx";
 import { chunk } from "lodash";
 import {
   Badge,
-  Fade,
   GridList,
   GridListTile,
   GridListTileBar,
@@ -14,16 +13,12 @@ import {
 } from "@material-ui/core";
 import PhotoLibraryIcon from "@material-ui/icons/PhotoLibrary";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import Img from "react-image";
+import Img from "../../ui/img/img";
 
 const useStyles = makeStyles(theme => ({
   imagesContainer: {},
   featuredImageContainer: {
     overflow: "hidden"
-  },
-  image: {
-    objectFit: "cover",
-    objectPosition: "center"
   },
   gridImageContainer: {},
   gridImageViewMoreBadge: {
@@ -43,7 +38,7 @@ const StyledGridListTileBar = withStyles(theme => ({
   }
 }))(GridListTileBar);
 
-function RecipeDetailImages({ images = {} }, props) {
+function RecipeDetailImages({ images = {} }) {
   const [galleryImages, setGalleryImages] = useState([]);
   const [galleryPage, setGalleryPage] = useState(1);
   const [galleryPageTotal, setGalleryPageTotal] = useState(1);
@@ -67,7 +62,7 @@ function RecipeDetailImages({ images = {} }, props) {
     setGalleryPageTotal(chunkedImages.length);
   }, [galleryPage, chunkedImages]);
 
-  const handleViewMoreClick = event => {
+  const handleViewMoreClick = () => {
     const pageIncrement = galleryPage + 1;
 
     pageIncrement > galleryPageTotal
@@ -77,35 +72,15 @@ function RecipeDetailImages({ images = {} }, props) {
 
   const _renderGalleryImages = (
     <GridList cellHeight={80} cols={3}>
-      {galleryImages.map((image, index) => {
+      {galleryImages.map((image) => {
         return (
           <GridListTile key={image.id}>
-            <Img
-              src={image.path}
-              className={clsx(classes.image, "w-full h-full")}
-              container={children => {
-                return (
-                  <Fade in={true} timeout={500}>
-                    {children}
-                  </Fade>
-                );
-              }}
-            />
+            <Img src={image.path} />
           </GridListTile>
         );
       })}
       <GridListTile key={images.small}>
-        <Img
-          src={images.small}
-          className={clsx(classes.image, "w-full h-full")}
-          container={children => {
-            return (
-              <Fade in={true} timeout={500}>
-                {children}
-              </Fade>
-            );
-          }}
-        />
+        <Img src={images.small} />
         <StyledGridListTileBar
           className="text-center"
           title={
@@ -131,19 +106,9 @@ function RecipeDetailImages({ images = {} }, props) {
   return (
     <div className={clsx(classes.imagesContainer, "images-container w-full")}>
       <div className={clsx(classes.featuredImageContainer, "w-full rounded")}>
-        <Img
-          src={images.medium}
-          className={clsx(classes.image, "w-full h-full")}
-          container={children => {
-            return (
-              <Fade in={true} timeout={500}>
-                {children}
-              </Fade>
-            );
-          }}
-        />
+        <Img src={images.medium} />
       </div>
-      <div className={clsx(classes.gridImageContainer, "flex w-full mt-4")}>
+      <div className={clsx(classes.gridImageContainer, "w-full mt-4")}>
         {_renderGalleryImages}
       </div>
     </div>

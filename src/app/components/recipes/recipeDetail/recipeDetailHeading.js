@@ -1,13 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Suspense from "../../ui/suspense";
+import { Button, Typography } from "@material-ui/core";
 
 const RecipeDetailHeading = ({ title }) => {
   return (
-    <div className="recipe-heading-container">
-      <div className="recipe-title">{title}</div>
-      <div className="recipe-edit-btn">Edit Recipe btn</div>
-      <div className="recipe-start-btn">Start Cooking btn</div>
+    <div className="w-full flex justify-between my-8 mb-10">
+      <div className="w-3/5 md:w-4/5">
+        <Typography variant="h4" className="recipe-title">
+          {title}
+        </Typography>
+      </div>
+      <div className="w-2/5 md:w-1/5 self-center">
+        <Button variant="contained" color="primary">
+          Start Cooking
+        </Button>
+      </div>
     </div>
   );
 };

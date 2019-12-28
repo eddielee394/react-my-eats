@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
-import { Paper } from "@material-ui/core";
+import { Paper, Divider } from "@material-ui/core";
 import Api from "../../../services/api";
 import RecipeDetailHeading from "./recipeDetailHeading";
 import RecipeDetailIngredients from "./recipeDetailIngredients";
@@ -36,15 +36,28 @@ function RecipeDetail(props) {
 
   return (
     <div className="sm:flex w-full lg:px-208 my-4">
-      <Sidebar colSize="1/3" widgetClasses="flex justify-center">
-        <Suspense loader loadingProps={{ isLoading: isLoading }}>
+      <Sidebar colSize="1/3" widgetClasses="justify-center">
+        <Suspense
+          loader
+          loadingProps={{
+            isLoading: isLoading,
+            loaderType: "placeholder",
+            type: "gridFeatured"
+          }}
+        >
           <RecipeDetailImages images={recipe.images} />
         </Suspense>
       </Sidebar>
-      <div className={clsx("w-full my-5 p-5 recipe-detail-container")}>
+      <div
+        className={clsx(
+          "w-full my-5 p-5 recipe-detail-container",
+          isLoading && "flex"
+        )}
+      >
         <Suspense loader loadingProps={{ isLoading: isLoading }}>
-          <Paper className={clsx("flex flex-col items-center h-full my-5 p-5")}>
+          <Paper className={clsx("flex flex-col items-center my-5 p-5")}>
             <RecipeDetailHeading images={recipe.images} title={recipe.title} />
+            <Divider variant="middle" className="w-full" />
             <RecipeDetailIngredients
               ingredients={recipe.ingredients}
               specials={specials}
