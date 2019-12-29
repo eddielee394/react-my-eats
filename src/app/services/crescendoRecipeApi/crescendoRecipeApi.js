@@ -1,6 +1,10 @@
 import { create } from "apisauce";
 import ErrorHandler from "../errorHandler";
-import { filterCollectionByObjProp, htmlParser } from "../../utils/helpers";
+import {
+  filterCollectionByObjProp,
+  generateDummyData,
+  htmlParser
+} from "../../utils/helpers";
 import { APP_CONFIG } from "../../config/appConfig";
 
 class CrescendoRecipeApi {
@@ -45,19 +49,24 @@ class CrescendoRecipeApi {
         images: {
           full: `${this.baseUrl}${data.images.full}`,
           medium: `${this.baseUrl}${data.images.medium}`,
-          small: `${this.baseUrl}${data.images.small}`
+          small: `${this.baseUrl}${data.images.small}`,
+          gallery: generateDummyData(
+            { title: "test", path: "https://loremflickr.com/320/240/food" },
+            14
+          )
         },
         servings: data.servings,
         prepTime: data.prepTime,
         cookTime: data.cookTime,
         postDate: data.postDate,
         editDate: data.editDate,
-        ingredients: data.ingredients.map(d => {
+        ingredients: data.ingredients.map((d, index) => {
           return {
             uuid: d.uuid,
             amount: d.amount,
             measurement: d.measurement,
-            name: d.name
+            name: d.name,
+            image: `https://loremflickr.com/100/100/food?random=${index}`
           };
         }),
         directions: data.directions.map(d => {
@@ -68,7 +77,9 @@ class CrescendoRecipeApi {
         }),
         specialsCount: filterCollectionByObjProp(
           specials.data,
-          data.ingredients
+          data.ingredients,
+          "ingredientId",
+          "uuid"
         ).length
       };
     };
@@ -111,19 +122,24 @@ class CrescendoRecipeApi {
         images: {
           full: `${this.baseUrl}${data.images.full}`,
           medium: `${this.baseUrl}${data.images.medium}`,
-          small: `${this.baseUrl}${data.images.small}`
+          small: `${this.baseUrl}${data.images.small}`,
+          gallery: generateDummyData(
+            { title: "test", path: "https://loremflickr.com/320/240/food" },
+            14
+          )
         },
         servings: data.servings,
         prepTime: data.prepTime,
         cookTime: data.cookTime,
         postDate: data.postDate,
         editDate: data.editDate,
-        ingredients: data.ingredients.map(d => {
+        ingredients: data.ingredients.map((d, index) => {
           return {
             uuid: d.uuid,
             amount: d.amount,
             measurement: d.measurement,
-            name: d.name
+            name: d.name,
+            image: `https://loremflickr.com/100/100/food?random=${index}`
           };
         }),
         directions: data.directions.map(d => {
@@ -134,7 +150,9 @@ class CrescendoRecipeApi {
         }),
         specialsCount: filterCollectionByObjProp(
           specials.data,
-          data.ingredients
+          data.ingredients,
+          "ingredientId",
+          "uuid"
         ).length
       };
     };

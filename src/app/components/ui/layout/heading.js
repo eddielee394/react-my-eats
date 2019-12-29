@@ -1,11 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
 import clsx from "clsx";
-import { APP_CONFIG } from "../../../config/appConfig";
 import {
   AppBar,
-  Avatar,
   Badge,
+  Button,
   InputBase,
   IconButton,
   Toolbar,
@@ -14,11 +12,18 @@ import {
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import SearchIcon from "@material-ui/icons/Search";
+import Img from "../../ui/img/img";
+import { logoLandscape } from "../../../utils/images";
+import { showNotification } from "../../../utils/helpers";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   appBar: {
     backgroundColor: theme.palette.common.white,
     color: theme.palette.text.hint
+  },
+  logo: {
+    maxWidth: 160
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -54,7 +59,9 @@ function Heading(props) {
       <div className="flex-row">
         <Toolbar className="mx-auto max-w-lg  lg:max-w-2xl">
           <div className={clsx("flex flex-shrink-0 items-center")}>
-            <Avatar>{APP_CONFIG.appName}</Avatar>
+            <Button component={Link} to="/">
+              <Img src={logoLandscape} className={classes.logo} />
+            </Button>
           </div>
           <div className="flex flex-1 justify-center">
             <div
@@ -69,22 +76,23 @@ function Heading(props) {
                 <SearchIcon />
               </div>
               <InputBase
-                placeholder="Search Recipe…"
+                placeholder="Search Recipes…"
                 classes={{
                   root: classes.inputRoot,
                   input: classes.inputInput
                 }}
                 inputProps={{ "aria-label": "search" }}
+                onChange={showNotification}
               />
             </div>
           </div>
           <div className="flex">
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
+            <IconButton onClick={showNotification} color="inherit">
+              <Badge badgeContent={3} color="primary">
                 <NotificationsNoneIcon />
               </Badge>
             </IconButton>
-            <IconButton edge="end" color="inherit">
+            <IconButton onClick={showNotification} edge="end" color="inherit">
               <AccountCircle />
             </IconButton>
           </div>
@@ -93,7 +101,5 @@ function Heading(props) {
     </AppBar>
   );
 }
-
-Heading.propTypes = {};
 
 export default Heading;

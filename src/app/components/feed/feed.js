@@ -1,17 +1,36 @@
 import React from "react";
 import clsx from "clsx";
 import {
+  Avatar,
   Paper,
   Fab,
   Divider,
   Typography,
   List,
   ListItem,
+  ListItemText,
+  ListItemAvatar,
   makeStyles
 } from "@material-ui/core";
-import StickyBox from "react-sticky-box";
+import AvatarGroup from "@material-ui/lab/AvatarGroup";
 import RecipeList from "../recipes/recipeList/recipeList";
 import CreateIcon from "@material-ui/icons/Create";
+import Sidebar from "../ui/layout/sidebar";
+import { showNotification } from "../../utils/helpers";
+
+const user = {
+  id: 1,
+  firstName: "Sam",
+  lastName: "DaMan",
+  avatarUrl: "https://i.pravatar.cc/100?img=18",
+  stats: {
+    followers: 500,
+    following: 248,
+    likesCount: 2300,
+    recipes: 20,
+    savedRecipes: 75
+  }
+};
 
 const useStyles = makeStyles({
   addButton: {
@@ -22,72 +41,122 @@ const useStyles = makeStyles({
   }
 });
 
-const widgetSpacing = "my-5 p-5";
-const colSpacing = "my-5 p-5";
-
-function LeftSideBar(props) {
-  return (
-    <React.Fragment>
-      <Paper className={widgetSpacing}>
-        <List>
-          <ListItem>
-            <Typography>UserProfileInfo component</Typography>
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <Typography>UserProfileStats component</Typography>
-          </ListItem>
-        </List>
-      </Paper>
-      <Paper className={widgetSpacing}>
-        <Typography>UserFavoritesList component</Typography>
-      </Paper>
-    </React.Fragment>
-  );
-}
-
-function RightSideBar(props) {
-  return (
-    <React.Fragment>
-      <Paper className={widgetSpacing}>
-        <Typography>FeaturedPosts component</Typography>
-      </Paper>
-      <Paper className={widgetSpacing}>
-        <Typography>ActiveUsers component</Typography>
-      </Paper>
-      <Paper className={widgetSpacing}>
-        <Typography>NavMenu component</Typography>
-      </Paper>
-    </React.Fragment>
-  );
-}
-
 function Feed(props) {
   const classes = useStyles();
 
   return (
     <div className="sm:flex w-full lg:px-208 my-4">
-      <div className={clsx(colSpacing, "w-full sm:w-1/5")}>
-        <StickyBox offsetTop={10} offsetBottom={20}>
-          <LeftSideBar />
-        </StickyBox>
-      </div>
-      <div className={clsx(colSpacing, "w-full sm:w-3/5")}>
+      <Sidebar colSize="1/3">
+        <List>
+          <ListItem disableGutters={true} className="justify-between">
+            <ListItemAvatar>
+              <Avatar
+                alt={`${user.firstName} ${user.lastName}`}
+                src={user.avatarUrl}
+              />
+            </ListItemAvatar>
+            <ListItemText
+              secondary={
+                <Typography
+                  component="span"
+                  variant="subtitle2"
+                  color="textPrimary"
+                >
+                  {`${user.firstName} ${user.lastName}`}
+                </Typography>
+              }
+            />
+            <div className="">
+              <Typography variant="caption" component="span">
+                {user.stats.followers} followers
+              </Typography>
+              <Divider orientation={"vertical"} />
+              <Typography variant="caption" component="span">
+                {user.stats.likesCount} likes
+              </Typography>
+            </div>
+          </ListItem>
+          <Divider />
+          <ListItem className="justify-between" disableGutters={true}>
+            <div className="flex flex-col items-center">
+              <Typography variant="subtitle2">{user.stats.recipes}</Typography>{" "}
+              <Typography variant="caption">Recipes</Typography>
+            </div>
+            <div className="flex flex-col items-center">
+              <Typography variant="subtitle2">
+                {user.stats.savedRecipes}
+              </Typography>
+              <Typography variant="caption">Saved</Typography>
+            </div>
+            <div className="flex flex-col items-center">
+              <Typography variant="subtitle2">
+                {user.stats.following}
+              </Typography>
+              <Typography variant="caption">Following</Typography>
+            </div>
+          </ListItem>
+        </List>
+        <List>
+          <ListItem>
+            <Typography>UserFavoritesList component</Typography>
+          </ListItem>
+        </List>
+      </Sidebar>
+      <div className={clsx("w-full sm:w-2/3 my-5 p-5")}>
         <Paper
           className={clsx(
-            widgetSpacing,
-            "flex flex-col justify-center items-center h-full"
+            "flex flex-col justify-center items-center h-full my-5 p-5"
           )}
         >
           <RecipeList />
         </Paper>
       </div>
-      <div className={clsx(colSpacing, "w-full sm:w-1/5")}>
-        <StickyBox offsetTop={10} offsetBottom={20}>
-          <RightSideBar />
-        </StickyBox>
-      </div>
-      <Fab color="primary" className={classes.addButton}>
+      <Sidebar>
+        <List>
+          <ListItem>
+            <Typography>FeaturedPosts component</Typography>
+          </ListItem>
+        </List>
+        <List>
+          <ListItem>
+            <div className="flex flex-col">
+              <Typography variant="subtitle2">Most Active Today</Typography>
+              <AvatarGroup>
+                <Avatar
+                  acomponent="button"
+                  onClick={showNotification}
+                  src="https://i.pravatar.cc/100?img=1"
+                />
+                <Avatar
+                  component="button"
+                  onClick={showNotification}
+                  src="https://i.pravatar.cc/100?img=5"
+                />
+                <Avatar
+                  component="button"
+                  onClick={showNotification}
+                  src="https://i.pravatar.cc/100?img=3"
+                />
+                <Avatar component="button" onClick={showNotification}>
+                  +3
+                </Avatar>
+              </AvatarGroup>
+            </div>
+          </ListItem>
+        </List>
+        <List>
+          <ListItem>
+            <div className="flex flex-col">
+              <Typography variant="subtitle2">NavMenu component</Typography>
+            </div>
+          </ListItem>
+        </List>
+      </Sidebar>
+      <Fab
+        color="primary"
+        className={classes.addButton}
+        onClick={showNotification}
+      >
         <CreateIcon />
       </Fab>
     </div>

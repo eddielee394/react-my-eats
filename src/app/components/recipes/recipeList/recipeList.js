@@ -48,7 +48,7 @@ function RecipeList() {
       loader
       loadingProps={{
         isLoading: isLoading,
-        loaderType: "cardItemLoader",
+        loaderType: "placeholder",
         type: "blogList"
       }}
     >
