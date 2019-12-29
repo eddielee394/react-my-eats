@@ -42,7 +42,7 @@ function Sidebar({ children, widgetClasses = "", colSize = "1/5", ...props }) {
 }
 
 Sidebar.propTypes = {
-  children: PropTypes.element.isRequired,
+  // children: PropTypes.element.isRequired,
   colSize: PropTypes.string,
   widgetClasses: PropTypes.string
 };

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { renderRoutes } from "react-router-config";
-import AppContext from "../../../AppContext";
+import AppContext from "../../../appContext";
 import Suspense from "../suspense";
 import { makeStyles } from "@material-ui/core/styles";
 import Heading from "./heading";

@@ -3,7 +3,7 @@ import "./assets/styles/index.scss";
 import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
-import App from "./app/App";
+import App from "./app/app";
 
 // if (process.env.NODE_ENV !== "production") {
 //   const whyDidYouRender = require("@welldone-software/why-did-you-render");

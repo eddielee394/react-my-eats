@@ -9,7 +9,7 @@ import {
 } from "@material-ui/styles";
 import history from "./utils/@history";
 import routes from "./config/routesConfig";
-import AppContext from "./AppContext";
+import AppContext from "./appContext";
 import Layout from "./components/ui/layout/layout";
 import Theme from "./components/ui/theme/theme";
 import { toast } from "react-toastify";
