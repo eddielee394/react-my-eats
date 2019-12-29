@@ -23,7 +23,10 @@ function Suspense({ loader, children, loadingProps }) {
 Suspense.propTypes = {
   loader: PropTypes.bool,
   loadingProps: PropTypes.object,
-  children: PropTypes.element.isRequired
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element)
+  ]).isRequired
 };
 
 Suspense.defaultProps = {

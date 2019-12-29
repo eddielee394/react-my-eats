@@ -1,6 +1,6 @@
 {
   "name": "react-myeats",
-  "version": "0.1.0",
+  "version": "0.4",
   "private": true,
   "dependencies": {
     "@material-ui/core": "4.8.0",
@@ -11,28 +11,41 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@welldone-software/why-did-you-render": "^3.5.0",
     "apisauce": "^1.1.1",
     "axios": "^0.19.0",
     "jss": "10.0.0",
     "jss-extend": "6.2.0",
     "lodash": "^4.17.15",
+    "moment": "^2.24.0",
     "react": "^16.12.0",
     "react-content-loader": "^4.3.3",
     "react-dom": "^16.12.0",
     "react-html-parser": "^2.0.2",
+    "react-id-swiper": "^2.4.0",
+    "react-image": "^2.2.2",
     "react-router-config": "5.1.1",
     "react-router-dom": "5.1.2",
     "react-scripts": "3.3.0",
-    "react-spinners": "^0.6.1"
+    "react-spinners": "^0.6.1",
+    "react-sticky-box": "^0.9.2",
+    "react-toastify": "^5.4.1",
+    "swiper": "^5.2.1",
+    "typeface-muli": "^0.0.71"
   },
   "devDependencies": {
+    "clsx": "^1.0.4",
+    "cross-env": "^6.0.3",
+    "faker": "github:Marak/faker.js#master",
+    "node-sass": "^4.13.0",
     "prop-types": "^15.7.2",
     "purgecss": "1.4.2",
     "tailwindcss": "1.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "yarn run tailwind && react-scripts start",
+    "build": "yarn run tailwind && node ./purge-tailwindcss.js && cross-env GENERATE_SOURCEMAP=false react-scripts build",
+    "tailwind": "./node_modules/.bin/tailwind build ./src/assets/styles/utils/tailwind-config.css -c src/app/config/tailwindConfig.js -o ./src/assets/styles/utils/tailwind.css",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -50,5 +63,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "homepage": "https://eddielee394.github.io/react-my-eats/"
 }

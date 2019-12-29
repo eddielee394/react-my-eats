@@ -1,39 +1,31 @@
 import React from "react";
-import Proptypes from "prop-types";
-import { CardItemLoader, SpinnerLoader } from "./components";
+import PropTypes from "prop-types";
+import { keys } from "lodash";
+import { PlaceholderLoader, SpinnerLoader } from "./components";
 
-const LOADER_TYPE = {
-  SPINNER: "spinner",
-  CARD_ITEM: "cardItemLoader"
-};
+const getLoaderType = props => ({
+  spinner: <SpinnerLoader {...props} />,
+  placeholder: <PlaceholderLoader {...props} />
+});
 
-function Loader(props) {
-  const { loaderType, isLoading, isSuspense } = props;
-
+function Loader({ loaderType, isLoading, isSuspense, ...props }) {
   if (isLoading || isSuspense) {
-    switch (loaderType) {
-      case LOADER_TYPE.SPINNER:
-        return <SpinnerLoader {...props} />;
-      case LOADER_TYPE.CARD_ITEM:
-        return <CardItemLoader {...props} />;
-      default:
-        return <SpinnerLoader {...props} />;
-    }
+    return getLoaderType(props)[loaderType];
   } else {
     return props.children;
   }
 }
 
 Loader.propTypes = {
-  isSuspense: Proptypes.bool.isRequired,
-  isLoading: Proptypes.bool.isRequired,
-  loaderType: Proptypes.string
+  isSuspense: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  loaderType: PropTypes.oneOf(keys(getLoaderType()))
 };
 
 Loader.defaultProps = {
   isSuspense: false,
   isLoading: false,
-  loaderType: LOADER_TYPE.SPINNER
+  loaderType: "spinner"
 };
 
 export default Loader;

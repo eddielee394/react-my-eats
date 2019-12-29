@@ -1,6 +1,10 @@
 import { create } from "apisauce";
 import ErrorHandler from "../errorHandler";
-import { htmlParser } from "../../utils/helpers";
+import {
+  filterCollectionByObjProp,
+  generateDummyData,
+  htmlParser
+} from "../../utils/helpers";
 import { APP_CONFIG } from "../../config/appConfig";
 
 class CrescendoRecipeApi {
@@ -21,10 +25,11 @@ class CrescendoRecipeApi {
   /**
    * Gets all recipes
    *
-   * @return {Promise<{ data: {uuid: string, title: string, description: string, images: {full: string, medium: string, small: string}, servings: number, prepTime: number, cookTime: number, postDate: Date, editDate: Date, ingredients: {uuid: string, amount: string, measurement: string, name: string}[], directions: {instructions: string, "optional": boolean}[]}[], message: string}>}
+   * @return {Promise<{ data: {uuid: string, title: string, description: string, images: {full: string, medium: string, small: string}, servings: number, prepTime: number, cookTime: number, postDate: Date, editDate: Date, ingredients: {uuid: string, amount: string, measurement: string, name: string}[], directions: {instructions: string, "optional": boolean}[], specialsCount: number}[], message: string}>}
    */
   getRecipes = async () => {
     const response = await this.api.get("/recipes");
+    const specials = await this.getIngredientSpecials();
 
     // the typical ways to die when calling an api
     if (!response.ok) {
@@ -44,19 +49,24 @@ class CrescendoRecipeApi {
         images: {
           full: `${this.baseUrl}${data.images.full}`,
           medium: `${this.baseUrl}${data.images.medium}`,
-          small: `${this.baseUrl}${data.images.small}`
+          small: `${this.baseUrl}${data.images.small}`,
+          gallery: generateDummyData(
+            { title: "test", path: "https://loremflickr.com/320/240/food" },
+            14
+          )
         },
         servings: data.servings,
         prepTime: data.prepTime,
         cookTime: data.cookTime,
         postDate: data.postDate,
         editDate: data.editDate,
-        ingredients: data.ingredients.map(d => {
+        ingredients: data.ingredients.map((d, index) => {
           return {
             uuid: d.uuid,
             amount: d.amount,
             measurement: d.measurement,
-            name: d.name
+            name: d.name,
+            image: `https://loremflickr.com/100/100/food?random=${index}`
           };
         }),
         directions: data.directions.map(d => {
@@ -64,7 +74,13 @@ class CrescendoRecipeApi {
             instructions: d.instructions,
             optional: d.optional
           };
-        })
+        }),
+        specialsCount: filterCollectionByObjProp(
+          specials.data,
+          data.ingredients,
+          "ingredientId",
+          "uuid"
+        ).length
       };
     };
 
@@ -82,10 +98,11 @@ class CrescendoRecipeApi {
   /**
    * Fetches a single recipe
    * @param id
-   * @return {Promise<{ data: {uuid: string, title: string, description: string, images: {full: string, medium: string, small: string}, servings: number, prepTime: number, cookTime: number, postDate: Date, editDate: Date, ingredients: {uuid: string, amount: string, measurement: string, name: string}[], directions: {instructions: string, "optional": boolean}[]}[], message: string}>}
+   * @return {Promise<{ data: {uuid: string, title: string, description: string, images: {full: string, medium: string, small: string}, servings: number, prepTime: number, cookTime: number, postDate: Date, editDate: Date, ingredients: {uuid: string, amount: string, measurement: string, name: string}[], directions: {instructions: string, "optional": boolean}[], specialsCount: number}[], message: string}>}
    */
   getRecipe = async id => {
     const response = await this.api.get(`/recipes/${id}`);
+    const specials = await this.getIngredientSpecials();
 
     // the typical ways to die when calling an api
     if (!response.ok) {
@@ -105,19 +122,24 @@ class CrescendoRecipeApi {
         images: {
           full: `${this.baseUrl}${data.images.full}`,
           medium: `${this.baseUrl}${data.images.medium}`,
-          small: `${this.baseUrl}${data.images.small}`
+          small: `${this.baseUrl}${data.images.small}`,
+          gallery: generateDummyData(
+            { title: "test", path: "https://loremflickr.com/320/240/food" },
+            14
+          )
         },
         servings: data.servings,
         prepTime: data.prepTime,
         cookTime: data.cookTime,
         postDate: data.postDate,
         editDate: data.editDate,
-        ingredients: data.ingredients.map(d => {
+        ingredients: data.ingredients.map((d, index) => {
           return {
             uuid: d.uuid,
             amount: d.amount,
             measurement: d.measurement,
-            name: d.name
+            name: d.name,
+            image: `https://loremflickr.com/100/100/food?random=${index}`
           };
         }),
         directions: data.directions.map(d => {
@@ -125,7 +147,13 @@ class CrescendoRecipeApi {
             instructions: d.instructions,
             optional: d.optional
           };
-        })
+        }),
+        specialsCount: filterCollectionByObjProp(
+          specials.data,
+          data.ingredients,
+          "ingredientId",
+          "uuid"
+        ).length
       };
     };
 
