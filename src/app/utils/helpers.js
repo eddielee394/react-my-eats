@@ -88,6 +88,17 @@ export function formatTimeFromNow(timestamp) {
 }
 
 /**
+ * Formats number in thousands to "k" format. (i.e. 2300 === "2.3k")
+ * @param num
+ * @returns {string || number}
+ */
+export function formatThousandsToK(num) {
+  return Math.abs(num) > 999
+    ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
+    : Math.sign(num) * Math.abs(num);
+}
+
+/**
  * Helper method to filter a collection by an object prop value from another collection
  * @param {array || object } collection collection to be iterated over
  * @param {array || object} sources source collection containing object that is to be compared

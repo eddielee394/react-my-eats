@@ -1,39 +1,48 @@
 # MyEats React Recipes Feed POC
+![release]
+[![Build Status][travis-image]][travis-url]
+![github-issues]
+
+
+![myeats-logo]
+
 > A partial frontend proof of concept for a food/recipe focused social network, meant for code quality, style, UI & overall design review.  Most features & functionality are still in WIP.  Still in active development, so bugs along with frequent breaking changes should be expected.  Active development occurs on [develop branch][develop-branch-url].
 
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
-
-One to two paragraph statement about your product and what it does.
-
-![](header.png)
+[View Demo][demo-url]
 
 ## Installation
 
-OS X & Linux:
+With demo json server:
+- clone demo json server locally
+- follow demo json server instructions to initiate the demo server
+- in the root directory copy `.env.example` and rename to `.env`.  Update any necessary env variables.
+- in a new terminal run the following:
 
 ```sh
 yarn install
 yarn start
 ```
 
+## Relevant Links
+- [Project Management][project-management]
+- [Wireframe/Mockup][wireframe]
 
-## Usage example
+## Shout Outs
+- Material UI
+- TailwindCss
+- Axios
 
 
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
+## Tests
+Run `yarn test` to initiate test suites.
 
 <!-- Markdown link & img dfn's -->
-[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/datadog-metrics
-[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
-[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
+[release]: https://img.shields.io/github/v/release/eddielee394/react-my-eats?include_prereleases
+[travis-image]: https://travis-ci.com/eddielee394/react-my-eats.svg?branch=master
+[travis-url]: https://travis-ci.com/eddielee394/react-my-eats
 [develop-branch-url]: https://github.com/eddielee394/react-my-eats/tree/develop
+[project-management]: https://github.com/eddielee394/react-my-eats/projects/1
+[github-issues]: https://img.shields.io/github/issues/eddielee394/react-my-eats
+[myeats-logo]: https://raw.githubusercontent.com/eddielee394/react-my-eats/master/docs/images/myeats_logo_landscape_small.jpg
+[wireframe]: https://projects.invisionapp.com/prototype/ck4rhdk6f007lb801pv14b7tp/play
+[demo-url]: https://eddielee394.github.io/react-my-eats
