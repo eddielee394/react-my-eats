@@ -16,7 +16,7 @@ import AvatarGroup from "@material-ui/lab/AvatarGroup";
 import RecipeList from "../recipes/recipeList/recipeList";
 import CreateIcon from "@material-ui/icons/Create";
 import Sidebar from "../ui/layout/sidebar";
-import { showNotification } from "../../utils/helpers";
+import { formatThousandsToK, showNotification } from "../../utils/helpers";
 
 const user = {
   id: 1,
@@ -46,9 +46,9 @@ function Feed(props) {
 
   return (
     <div className="sm:flex w-full lg:px-208 my-4">
-      <Sidebar colSize="1/3">
+      <Sidebar colSize="1/5">
         <List>
-          <ListItem disableGutters={true} className="justify-between">
+          <ListItem disableGutters={true} className="justify-center">
             <ListItemAvatar>
               <Avatar
                 alt={`${user.firstName} ${user.lastName}`}
@@ -57,29 +57,37 @@ function Feed(props) {
             </ListItemAvatar>
             <ListItemText
               secondary={
-                <Typography
-                  component="span"
-                  variant="subtitle2"
-                  color="textPrimary"
-                >
-                  {`${user.firstName} ${user.lastName}`}
-                </Typography>
+                <div>
+                  <Typography
+                    component="span"
+                    variant="subtitle2"
+                    color="textPrimary"
+                  >
+                    {`${user.firstName} ${user.lastName}`}
+                  </Typography>
+                  <div className="flex">
+                    <Typography variant="caption" component="span">
+                      {user.stats.followers} followers
+                    </Typography>
+                    <Typography
+                      className="mx-1"
+                      variant="caption"
+                      component="span"
+                    >
+                      &bull;
+                    </Typography>
+                    <Typography variant="caption" component="span">
+                      {formatThousandsToK(user.stats.likesCount)} likes
+                    </Typography>
+                  </div>
+                </div>
               }
             />
-            <div className="">
-              <Typography variant="caption" component="span">
-                {user.stats.followers} followers
-              </Typography>
-              <Divider orientation={"vertical"} />
-              <Typography variant="caption" component="span">
-                {user.stats.likesCount} likes
-              </Typography>
-            </div>
           </ListItem>
           <Divider />
           <ListItem className="justify-between" disableGutters={true}>
             <div className="flex flex-col items-center">
-              <Typography variant="subtitle2">{user.stats.recipes}</Typography>{" "}
+              <Typography variant="subtitle2">{user.stats.recipes}</Typography>
               <Typography variant="caption">Recipes</Typography>
             </div>
             <div className="flex flex-col items-center">
@@ -98,11 +106,13 @@ function Feed(props) {
         </List>
         <List>
           <ListItem>
-            <Typography>UserFavoritesList component</Typography>
+            <Typography variant="subtitle2">
+              UserFavoritesList component
+            </Typography>
           </ListItem>
         </List>
       </Sidebar>
-      <div className={clsx("w-full sm:w-2/3 my-5 p-5")}>
+      <div className={clsx("w-full sm:w-3/5 my-5 p-5")}>
         <Paper
           className={clsx(
             "flex flex-col justify-center items-center h-full my-5 p-5"
@@ -114,7 +124,7 @@ function Feed(props) {
       <Sidebar>
         <List>
           <ListItem>
-            <Typography>FeaturedPosts component</Typography>
+            <Typography variant="subtitle2">FeaturedPosts component</Typography>
           </ListItem>
         </List>
         <List>
