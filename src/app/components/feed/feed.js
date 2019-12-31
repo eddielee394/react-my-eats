@@ -1,116 +1,60 @@
 import React from "react";
 import clsx from "clsx";
 import {
-  Avatar,
-  Paper,
-  Fab,
   Divider,
-  Typography,
+  Fab,
+  Hidden,
   List,
   ListItem,
-  ListItemText,
-  ListItemAvatar,
-  makeStyles
+  makeStyles,
+  Paper,
+  Typography
 } from "@material-ui/core";
-import AvatarGroup from "@material-ui/lab/AvatarGroup";
+import { showNotification } from "../../utils/helpers";
+import { demoData } from "../../../data/data";
 import RecipeList from "../recipes/recipeList/recipeList";
 import CreateIcon from "@material-ui/icons/Create";
 import Sidebar from "../ui/layout/sidebar";
-import { formatThousandsToK, showNotification } from "../../utils/helpers";
+import ActiveUsersWidget from "../widgets/activeUsersWidget";
+import UserStatsWidget from "../widgets/userStatsWidget";
+import UserInfoWidget from "../widgets/userInfoWidget";
+import SocialLinks from "../widgets/socialLinks";
 
-const user = {
-  id: 1,
-  firstName: "Sam",
-  lastName: "DaMan",
-  avatarUrl: "https://i.pravatar.cc/100?img=18",
-  stats: {
-    followers: 500,
-    following: 248,
-    likesCount: 2300,
-    recipes: 20,
-    savedRecipes: 75
-  }
-};
-
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   addButton: {
     position: "fixed",
     right: 50,
     bottom: 12,
     zIndex: 99
   }
-});
+}));
 
 function Feed(props) {
   const classes = useStyles();
+  const { user } = demoData;
+  const { users } = demoData;
 
   return (
-    <div className="sm:flex w-full lg:px-208 my-4">
+    <div className="flex flex-col sm:flex-row w-full lg:px-208 my-4">
       <Sidebar colSize="1/5">
         <List>
-          <ListItem disableGutters={true} className="justify-center">
-            <ListItemAvatar>
-              <Avatar
-                alt={`${user.firstName} ${user.lastName}`}
-                src={user.avatarUrl}
-              />
-            </ListItemAvatar>
-            <ListItemText
-              secondary={
-                <div>
-                  <Typography
-                    component="span"
-                    variant="subtitle2"
-                    color="textPrimary"
-                  >
-                    {`${user.firstName} ${user.lastName}`}
-                  </Typography>
-                  <div className="flex">
-                    <Typography variant="caption" component="span">
-                      {user.stats.followers} followers
-                    </Typography>
-                    <Typography
-                      className="mx-1"
-                      variant="caption"
-                      component="span"
-                    >
-                      &bull;
-                    </Typography>
-                    <Typography variant="caption" component="span">
-                      {formatThousandsToK(user.stats.likesCount)} likes
-                    </Typography>
-                  </div>
-                </div>
-              }
-            />
+          <ListItem disableGutters={true}>
+            <UserInfoWidget user={user} />
           </ListItem>
           <Divider />
-          <ListItem className="justify-between" disableGutters={true}>
-            <div className="flex flex-col items-center">
-              <Typography variant="subtitle2">{user.stats.recipes}</Typography>
-              <Typography variant="caption">Recipes</Typography>
-            </div>
-            <div className="flex flex-col items-center">
-              <Typography variant="subtitle2">
-                {user.stats.savedRecipes}
-              </Typography>
-              <Typography variant="caption">Saved</Typography>
-            </div>
-            <div className="flex flex-col items-center">
-              <Typography variant="subtitle2">
-                {user.stats.following}
-              </Typography>
-              <Typography variant="caption">Following</Typography>
-            </div>
+          <ListItem disableGutters={true}>
+            <UserStatsWidget user={user} />
           </ListItem>
         </List>
-        <List>
-          <ListItem>
-            <Typography variant="subtitle2">
-              UserFavoritesList component
-            </Typography>
-          </ListItem>
-        </List>
+        <Hidden smDown>
+          <List>
+            <ListItem>
+              <Typography variant="subtitle2">
+                UserFavoritesList component
+              </Typography>
+            </ListItem>
+          </List>
+        </Hidden>
       </Sidebar>
       <div className={clsx("w-full sm:w-3/5 my-5 p-5")}>
         <Paper
@@ -129,35 +73,46 @@ function Feed(props) {
         </List>
         <List>
           <ListItem>
-            <div className="flex flex-col">
-              <Typography variant="subtitle2">Most Active Today</Typography>
-              <AvatarGroup>
-                <Avatar
-                  acomponent="button"
-                  onClick={showNotification}
-                  src="https://i.pravatar.cc/100?img=1"
-                />
-                <Avatar
-                  component="button"
-                  onClick={showNotification}
-                  src="https://i.pravatar.cc/100?img=5"
-                />
-                <Avatar
-                  component="button"
-                  onClick={showNotification}
-                  src="https://i.pravatar.cc/100?img=3"
-                />
-                <Avatar component="button" onClick={showNotification}>
-                  +3
-                </Avatar>
-              </AvatarGroup>
-            </div>
+            <ActiveUsersWidget users={users} />
           </ListItem>
         </List>
-        <List>
+        <List disablePadding>
           <ListItem>
-            <div className="flex flex-col">
-              <Typography variant="subtitle2">NavMenu component</Typography>
+            <div className="w-full">
+              <div className="flex flex-1 justify-between">
+                <Typography
+                  variant="caption"
+                  color="inherit"
+                  component="button"
+                  onClick={showNotification}
+                >
+                  About
+                </Typography>
+                <Typography
+                  variant="caption"
+                  color="inherit"
+                  component="button"
+                  onClick={showNotification}
+                >
+                  Help
+                </Typography>
+                <Typography
+                  variant="caption"
+                  color="inherit"
+                  component="button"
+                  onClick={showNotification}
+                >
+                  Privacy
+                </Typography>
+              </div>
+              <SocialLinks
+                className="flex justify-between sm:justify-center"
+                iconProps={{ fontSize: "small" }}
+              />
+              <Divider />
+              <Typography className="mt-5 text-center" variant="caption">
+                &copy; MyEats 2020
+              </Typography>
             </div>
           </ListItem>
         </List>

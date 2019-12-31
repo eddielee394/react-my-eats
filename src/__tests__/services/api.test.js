@@ -3,7 +3,7 @@ import Api from "../../app/services/api";
 
 jest.mock("../../app/services/api");
 
-const loadResponse = () => ({ message: "ok" });
+const dummyResponse = { message: "ok" };
 
 afterEach(() => {
   jest.resetAllMocks();
@@ -12,7 +12,7 @@ afterEach(() => {
 describe("init api tests", () => {
   describe("getRecipes", () => {
     it("should successfully fetch a list of recipes", async () => {
-      Api.getRecipes.mockResolvedValueOnce(loadResponse());
+      Api.getRecipes.mockResolvedValueOnce(dummyResponse);
 
       const response = await Api.getRecipes();
 
@@ -22,7 +22,7 @@ describe("init api tests", () => {
 
   describe("getRecipe", () => {
     it("should successfully fetch a single recipe", async () => {
-      Api.getRecipe.mockResolvedValueOnce(loadResponse());
+      Api.getRecipe.mockResolvedValueOnce(dummyResponse);
       const id = "e80ea521-4d42-48fe-a7a6-ac8952bc0de4";
 
       const response = await Api.getRecipe(id);
@@ -33,7 +33,7 @@ describe("init api tests", () => {
 
   describe("getSpecials", () => {
     it("should successfully fetch an array of specials", async () => {
-      Api.getSpecials.mockResolvedValueOnce(loadResponse());
+      Api.getSpecials.mockResolvedValueOnce(dummyResponse);
 
       const response = await Api.getSpecials();
 
@@ -43,7 +43,7 @@ describe("init api tests", () => {
 
   describe("getSpecial", () => {
     it("should successfully fetch a single special", async () => {
-      Api.getSpecial.mockResolvedValueOnce(loadResponse());
+      Api.getSpecial.mockResolvedValueOnce(dummyResponse);
 
       const id = "233d8582-141a-460d-b7e1-d623afd69e7d";
 

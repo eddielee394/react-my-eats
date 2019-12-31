@@ -35,7 +35,10 @@ function RecipeDetail(props) {
   }, [id]);
 
   return (
-    <div className="sm:flex w-full lg:px-208 my-4">
+    <div
+      className="sm:flex w-full lg:px-208 my-4"
+      data-testid={`recipe-detail-${recipe.uuid}`}
+    >
       <Sidebar colSize="1/3" widgetClasses="justify-center">
         <Suspense
           loader
