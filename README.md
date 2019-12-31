@@ -8,8 +8,6 @@
 
 > A partial frontend proof of concept for a food/recipe focused social network, meant for code quality, style, UI & overall design review.  Most features & functionality are still in WIP.  Still in active development, so bugs along with frequent breaking changes should be expected.  Active development occurs on [develop branch][develop-branch-url].
 
-[View Demo][demo-url]
-
 ## Installation
 
 With demo json server:
