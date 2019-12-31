@@ -20,7 +20,9 @@ class CrescendoRecipeApi {
     }
   });
 
-  baseUrl = this.api.getBaseURL();
+  //todo temporary fix to handle the diff between the json server & mock api urls
+  // when it comes to managing the image url paths
+  baseUrl = APP_CONFIG.apiBaseUrl === "/api" ? "" : this.api.getBaseURL();
 
   /**
    * Gets all recipes
