@@ -49,7 +49,7 @@ function RecipeListItem(props) {
   const hasSpecials = recipe.specialsCount > 0;
 
   return (
-    <div className="w-full my-5">
+    <div className="w-full my-5" data-testid={recipe.uuid}>
       <Card className="py-5">
         <CardHeader
           avatar={<Avatar>ME</Avatar>}
@@ -70,9 +70,9 @@ function RecipeListItem(props) {
           }
         />
         <CardMedia className="flex h-320">
-          <Img src={recipe.images.medium} />
+          <Img src={recipe.images.medium} alt={recipe.title} />
         </CardMedia>
-        <Link to={`/recipes/${recipe.uuid}`}>
+        <Link to={`/recipes/${recipe.uuid}`} data-testid={`recipeListItemLink-${recipe.uuid}`}>
           <CardContent>
             <div className="flex justify-between">
               <Typography variant="h4">{recipe.title}</Typography>
