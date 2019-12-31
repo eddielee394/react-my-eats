@@ -1,5 +1,6 @@
 import "typeface-muli";
 import "./assets/styles/index.scss";
+import "./data";
 import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";

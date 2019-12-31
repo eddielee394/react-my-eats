@@ -57,7 +57,7 @@ function Heading(props) {
       color="default"
     >
       <div className="flex-row">
-        <Toolbar className="mx-auto max-w-lg  lg:max-w-2xl">
+        <Toolbar className="mx-auto lg:px-208">
           <div className={clsx("flex flex-shrink-0 items-center")}>
             <Button component={Link} to="/">
               <Img src={logoLandscape} className={classes.logo} />

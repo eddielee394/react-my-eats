@@ -8,18 +8,22 @@
 
 > A partial frontend proof of concept for a food/recipe focused social network, meant for code quality, style, UI & overall design review.  Most features & functionality are still in WIP.  Still in active development, so bugs along with frequent breaking changes should be expected.  Active development occurs on [develop branch][develop-branch-url].
 
+[View Demo][demo-url]
+
 ## Installation
 
 With demo json server:
 - clone demo json server locally
 - follow demo json server instructions to initiate the demo server
-- in the root directory copy `.env.example` and rename to `.env`.  Update any necessary env variables.
+- in the root directory copy `.env.example` and rename to `.env`.  Update the `REACT_APP_API_URL` variable with the api host address.
 - in a new terminal run the following:
 
 ```sh
 yarn install
 yarn start
 ```
+
+**If you'd prefer to use the static mock data instead of the json server, just do not include the `REACT_APP_API_URL` variable in your `.env` file.  The application will automatically handle changing the API adapter.**
 
 ## Relevant Links
 - [Project Management][project-management]
