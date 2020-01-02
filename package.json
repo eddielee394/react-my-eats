@@ -38,6 +38,7 @@
     "clsx": "^1.0.4",
     "cross-env": "^6.0.3",
     "faker": "github:Marak/faker.js#master",
+    "gh-pages": "^2.1.1",
     "node-sass": "^4.13.0",
     "prop-types": "^15.7.2",
     "purgecss": "1.4.2",
@@ -45,7 +46,9 @@
   },
   "scripts": {
     "start": "yarn run tailwind && react-scripts start",
-    "build": "yarn run tailwind && node ./purge-tailwindcss.js && cross-env GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "yarn run tailwind && cross-env GENERATE_SOURCEMAP=false react-scripts build",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build",
     "tailwind": "./node_modules/.bin/tailwind build ./src/assets/styles/utils/tailwind-config.css -c src/app/config/tailwindConfig.js -o ./src/assets/styles/utils/tailwind.css",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
