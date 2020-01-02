@@ -13,7 +13,6 @@ import AppContext from "./appContext";
 import Layout from "./components/ui/layout/layout";
 import Theme from "./components/ui/theme/theme";
 import { toast } from "react-toastify";
-import { APP_CONFIG } from "./config/appConfig";
 
 toast.configure({ toastClassName: "rounded" });
 
@@ -28,9 +27,8 @@ const generateClassName = createGenerateClassName();
 function App() {
   return (
     <AppContext.Provider value={{ routes }}>
-      {console.log("process.env: ", process.env)}
       <StylesProvider jss={jss} generateClassName={generateClassName}>
-        <Router history={history} basename={APP_CONFIG.appUrl}>
+        <Router history={history}>
           <Theme>
             <Layout />
           </Theme>
