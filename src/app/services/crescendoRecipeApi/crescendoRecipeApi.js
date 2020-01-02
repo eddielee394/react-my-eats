@@ -20,9 +20,12 @@ class CrescendoRecipeApi {
     }
   });
 
-  //todo temporary fix to handle the diff between the json server & mock api urls
+  //todo github.io temp fix to handle the diff between the json server & mock api urls
   // when it comes to managing the image url paths
-  baseUrl = APP_CONFIG.apiBaseUrl === "/api" ? "" : this.api.getBaseURL();
+  baseUrl =
+    process.env.REACT_APP_API_ADAPTER === "mock-adapter"
+      ? APP_CONFIG.appUrl
+      : APP_CONFIG.apiBaseUrl;
 
   /**
    * Gets all recipes

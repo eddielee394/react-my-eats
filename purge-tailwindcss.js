@@ -16,7 +16,7 @@ const purgecss = new Purgecss({
   content: ["./src/**/*.js"],
   css: ["./src/assets/styles/utils/tailwind.css"],
   rejected: true,
-  whitelist: ["pl-24", "pl-40", "pl-56", "pl-72", "pl-80"],
+  whitelist: ["pl-24", "pl-40", "pl-56", "pl-72", "pl-80", "w-1/5", "sm:w-1/5"],
   extractors: [
     {
       extractor: TailwindExtractor,

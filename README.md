@@ -15,7 +15,7 @@
 With demo json server:
 - clone demo json server locally
 - follow demo json server instructions to initiate the demo server
-- in the root directory copy `.env.example` and rename to `.env`.  Update the `REACT_APP_API_URL` variable with the api host address.
+- in the root directory copy `.env.example` and rename to `.env`.  Update the `REACT_APP_API_URL` variable with the api host address and the `REACT_APP_API_ADAPTER` variable with `json-server`.
 - in a new terminal run the following:
 
 ```sh
@@ -23,7 +23,7 @@ yarn install
 yarn start
 ```
 
-**If you'd prefer to use the static mock data instead of the json server, just do not include the `REACT_APP_API_URL` variable in your `.env` file.  The application will automatically handle changing the API adapter.**
+**If you'd prefer to use the static mock data instead of the json server, just do not include the `REACT_APP_API_URL` or `REACT_APP_API_ADAPTER` variables in your `.env` file.  The application will automatically handle changing the API adapter.**
 
 ## Relevant Links
 - [Project Management][project-management]
