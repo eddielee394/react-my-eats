@@ -38,7 +38,8 @@ function Sidebar({
       <StickyBox offsetTop={10} offsetBottom={20}>
         <div className="widget-container">
           {React.Children.map(children, child => {
-            if (child.type.name === "Hidden") {
+            if (child.type.name === Hidden.name) {
+              console.log(child);
               return (
                 <Hidden {...child.props}>
                   <Paper className={clsx(classes.widget, widgetClasses)}>
