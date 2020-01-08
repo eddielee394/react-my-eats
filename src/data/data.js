@@ -1,6 +1,7 @@
+import axios from "axios";
 import mock from "./mock";
 import { find } from "lodash";
-import { route } from "../app/utils/helpers";
+import { RouteFactory } from "@eddielee394/axios-route-params-utils";
 
 export const demoData = {
   recipes: [
@@ -600,6 +601,8 @@ export const demoData = {
   }
 };
 
+const { route } = new RouteFactory(axios);
+
 mock.onGet("/api/recipes").reply(request => {
   const response = demoData.recipes;
 
@@ -607,7 +610,7 @@ mock.onGet("/api/recipes").reply(request => {
 });
 
 mock.onGet(route("/api/recipes/:id")).reply(request => {
-  const id = request.url.substr(request.url.lastIndexOf("/") + 1);
+  const { id } = request.params;
   const response = find(demoData.recipes, { uuid: id });
 
   if (response) {
@@ -624,7 +627,7 @@ mock.onGet("/api/specials").reply(request => {
 });
 
 mock.onGet(route("/api/specials/:id")).reply(request => {
-  const id = request.url.substr(request.url.lastIndexOf("/") + 1);
+  const { id } = request.params;
   const response = find(demoData.specials, { uuid: id });
 
   if (response) {

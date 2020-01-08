@@ -39,7 +39,6 @@ function Sidebar({
         <div className="widget-container">
           {React.Children.map(children, child => {
             if (child.type.name === Hidden.name) {
-              console.log(child);
               return (
                 <Hidden {...child.props}>
                   <Paper className={clsx(classes.widget, widgetClasses)}>
