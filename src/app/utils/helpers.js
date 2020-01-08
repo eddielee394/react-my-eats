@@ -1,7 +1,7 @@
-import {includes} from "lodash";
+import { includes } from "lodash";
 import ReactHtmlParser from "react-html-parser";
 import moment from "moment";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 /**
  * Parses html and strips any tags designated in the blacklist array
@@ -161,16 +161,4 @@ export function showNotification({
       ...options
     });
   }
-}
-
-/**
- * handles placeholders in axios routes
- * @example "/api/recipes/:id"
- * @param path
- * @returns {string}
- */
-export function route(path = "") {
-  return typeof path === "string"
-    ? new RegExp(path.replace(/:\w+/g, "[^/]+"))
-    : path;
 }

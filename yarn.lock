@@ -893,6 +893,14 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
+"@eddielee394/axios-route-params-utils@^0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@eddielee394/axios-route-params-utils/-/axios-route-params-utils-0.1.6.tgz#e8d19b8c15c1af051dd6d12368a387073adb6c30"
+  integrity sha512-hcdwNeO0Hxk0LcaLJ6PNGnndIeldHzlpJl5zYI/d7eZT5m0x+pp+uXp9lxDy080/U05hc7mT6kJmtJzTHaX/yw==
+  dependencies:
+    axios "^0.19.0"
+    lodash "^4.17.15"
+
 "@emotion/cache@^10.0.17":
   version "10.0.19"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-10.0.19.tgz#d258d94d9c707dcadaf1558def968b86bb87ad71"
